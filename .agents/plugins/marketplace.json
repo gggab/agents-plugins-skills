@@ -1,0 +1,20 @@
+{
+  "name": "standard-smart-office",
+  "interface": {
+    "displayName": "Standard Smart Office Plugins"
+  },
+  "plugins": [
+    {
+      "name": "meegle-fix-bugs",
+      "source": {
+        "source": "local",
+        "path": "./meegle-fix-bugs"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
