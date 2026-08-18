@@ -57,13 +57,15 @@ Commit only when explicitly requested. Stage exact files, inspect the staged dif
 
 ## 7. Push and deploy
 
-Push only when explicitly requested. Before deployment, resolve and show the exact project, ref, pipeline, full SHA, manual job, and target environment. Obtain every confirmation required by the deployment tool.
+Push only when explicitly requested. For a read-only deployment-status check, resolve and show the exact project/ref/environment scope, ask for scope confirmation at most once, and reuse that exact confirmation across every `gitlab_deployment` call needed for the query. Do not ask again merely because scope configuration and status lookup require separate MCP calls. Ask again only when the scope changes, and never create a confirmation on the user's behalf.
+
+Before triggering deployment, resolve and show the exact project, ref, pipeline, full SHA, manual job, and target environment. Obtain target-specific deployment approval separately; read-scope confirmation does not authorize deployment.
 
 Trigger only the approved job and poll it to a terminal state. A successful overall pipeline is not proof that the target environment was deployed. On failure or SHA mismatch, stop closure and report the deployed state truthfully.
 
 ## 8. Update and close Meegle
 
-After successful deployment, revalidate authentication and reread every Bug. Obtain confirmation for target state and required business fields. Follow [meegle-writeback.md](meegle-writeback.md), then add the requested repair comment and read back status, fields, and comment.
+After successful deployment, revalidate authentication and reread every Bug. Follow [meegle-writeback.md](meegle-writeback.md) to resolve target states and required fields automatically where safe, asking at most one consolidated question for unresolved values across all ready Bugs. Then add the requested repair comment and read back status, fields, and comment.
 
 When only part of a cross-component repair is complete, retain an unfinished state such as `IN PROGRESS` or `REOPENED` according to the user's confirmed choice. Never close from frontend-only evidence when backend or environment work remains.
 

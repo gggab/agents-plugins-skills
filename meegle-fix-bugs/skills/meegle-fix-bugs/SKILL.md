@@ -38,8 +38,8 @@ Use the declared `meegle` MCP for Bug discovery and write-back, and `gitlab_depl
 2. Reproduce the issue from its description, comments, and attachments before editing. Separate facts from inference. If details are insufficient, request them only when authorized and stop without code changes.
 3. Inspect the repository, applicable `AGENTS.md`, branch, remote state, submodules, and dirty worktree. Preserve unrelated changes.
 4. Prefer a focused failing check before the fix. Afterward, run focused tests, relevant full tests, the production build, and a diff review as appropriate.
-5. For authorized delivery, keep one Bug per commit and verify the staged files. Treat project scope and deployment approval as separate gates, and verify that the terminal deployment job used the expected SHA.
-6. After a successful deployment, tell the user that the Bug status will be transitioned and an English repair comment will be added. Before the authorized Meegle update, confirm rather than infer business values; then transition the Bug, add the English comment, and read back the status, fields, and comment.
+5. Reuse one confirmed project/ref/environment scope across all read-only `gitlab_deployment` calls in the current run; ask again only if that scope changes. For authorized delivery, keep one Bug per commit, treat deployment approval as a separate gate, and verify that the terminal job used the expected SHA.
+6. After a successful deployment, tell the user that the Bug status will be transitioned and an English repair comment will be added. Resolve write-back values from current valid values, explicit user input, and unique live options. If ambiguity remains, ask one consolidated question for all ready Bugs; then transition, comment, and read back the result.
 
 Stop a Bug when required details or external actions are unavailable. Never skip from discovery or a local commit to closure, and report local, committed, pushed, deployed, and Meegle states separately.
 

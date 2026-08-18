@@ -9,9 +9,9 @@
 | Edit workspace files and run tests | Fix/repair request |
 | Create a Git commit | Explicit commit request |
 | Push a branch | Explicit push/publish request |
-| Configure deployment read scope | Required project-scope confirmation |
+| Configure or query deployment read scope | One explicit confirmation per unchanged project/ref/environment scope; reuse it across read-only MCP calls in the current run |
 | Trigger a deployment job | Target-specific deployment approval |
-| Set classification, resolution, state, person, or date | Explicit business-value confirmation |
+| Set classification, resolution, state, person, or date | Authorized Meegle update plus a current valid value, an exact user/evidence match, a unique live choice, or one consolidated confirmation |
 
 Do not combine these authorities. For example, deployment approval does not approve Meegle classification, and a repair request does not approve a push.
 
@@ -32,7 +32,7 @@ Stop the affected Bug when:
 - tests or build fail for an unexplained reason;
 - the expected commit is not the deployment SHA;
 - the deployment job fails or remains non-terminal;
-- required business values are unconfirmed;
+- required business values remain unresolved after automatic resolution and the single consolidated confirmation;
 - a required field cannot be written through the available API;
 - a Meegle write cannot be verified by read-back;
 - backend or another component remains unfixed.

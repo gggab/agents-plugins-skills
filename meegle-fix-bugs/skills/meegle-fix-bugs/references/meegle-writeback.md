@@ -14,13 +14,12 @@ Use the current installed Meegle skill or official MCP schema as the authoritati
 
 ## State-transition contract
 
-1. Reread the work item and list current legal transitions.
-2. Require the user to choose when multiple targets fit or when the target state is not explicit.
-3. Attempt the confirmed transition.
-4. If the service reports missing required fields, query outstanding requirements and field metadata.
-5. Present all missing business fields and legal options in one confirmation request.
-6. Convert confirmed values using the current field protocol, update them, and retry the transition.
-7. Stop after two targeted corrections when the same transition still fails.
+1. Reread every ready work item, current legal transitions, required fields, and live options before asking anything.
+2. Reuse a current valid field value. Use a value already stated by the user or Bug evidence when it maps exactly to one live option. Use a target state or missing field without asking only when one legal choice satisfies the requested outcome.
+3. If ambiguity remains, ask one consolidated question covering the proposed target state and every unresolved required field for all ready Bugs. Show labels, not raw IDs, and include a recommended choice when evidence supports one.
+4. Treat that answer as confirmation for the listed Bugs and values. Do not ask another field-by-field or per-Bug question for the same transition attempt.
+5. Convert resolved values using the current field protocol, update them, and attempt the transition.
+6. If the service reveals a previously undiscoverable required value that cannot be resolved by the rules above, stop and report it instead of starting another question loop. Retry only schema or format corrections that do not change the confirmed business meaning, at most twice.
 
 Never invent enum choices, assignees, dates, classifications, or resolution results. Never reuse historical transition or option IDs without live metadata.
 
