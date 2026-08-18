@@ -18,7 +18,7 @@ Infer permission only from the user's request:
 | Fix | Edit and test locally |
 | Commit | Create the requested local commit |
 | Push | Push only when the user explicitly requests it; never push by default |
-| Deploy | Deploy only after showing the project, pipeline, SHA, job, and environment and receiving any required approval |
+| Deploy | Show the project, pipeline, SHA, job, and environment, then require exactly one target-specific approval; never add a scope-confirmation or magic-phrase gate |
 | Close or update | Confirm business values, write to Meegle, and read back |
 
 “Automate,” “finish,” and “continue” do not authorize commit, push, deployment, or shared-data updates.
@@ -34,12 +34,12 @@ Use the declared `meegle` MCP for Bug discovery and write-back, and `gitlab_depl
 
 ## Follow the repair workflow
 
-1. Resolve “me” from the authenticated account. Revalidate the project, work-item type, fields, roles, pagination, and current Bug state.
+1. Resolve “me,” the project, work-item type, fields, roles, and pagination once per uninterrupted run. Reuse them while the account, project, connector session, and schema are unchanged; revalidate only after a resume/reconnect, a relevant change, or an authentication/schema error. Always reread the current Bug state before a write.
 2. Reproduce the issue from its description, comments, and attachments before editing. Separate facts from inference. If details are insufficient, request them only when authorized and stop without code changes.
 3. Inspect the repository, applicable `AGENTS.md`, branch, remote state, submodules, and dirty worktree. Preserve unrelated changes.
 4. Prefer a focused failing check before the fix. Afterward, run focused tests, relevant full tests, the production build, and a diff review as appropriate.
-5. Reuse one confirmed project/ref/environment scope across all read-only `gitlab_deployment` calls in the current run; ask again only if that scope changes. For authorized delivery, keep one Bug per commit, treat deployment approval as a separate gate, and verify that the terminal job used the expected SHA.
-6. After a successful deployment, tell the user that the Bug status will be transitioned and an English repair comment will be added. Resolve write-back values from current valid values, explicit user input, and unique live options. If ambiguity remains, ask one consolidated question for all ready Bugs; then transition, comment, and read back the result.
+5. Select one project/ref/environment scope and reuse it across all read-only `gitlab_deployment` calls in the current run without asking for approval. For authorized delivery, keep one Bug per commit, obtain only the deployment write approval, and verify that the terminal job used the expected SHA.
+6. Before deployment approval, include the proposed post-success Meegle transitions, fields, and repair comments when the user asked for the full repair workflow. Resolve write-back values from current valid values, explicit user input, and unique live options. Ask one consolidated question only when a business value is genuinely ambiguous. After successful deployment, reuse that authorization to transition, comment, and read back without asking the user to say “修改状态” first.
 
 Stop a Bug when required details or external actions are unavailable. Never skip from discovery or a local commit to closure, and report local, committed, pushed, deployed, and Meegle states separately.
 

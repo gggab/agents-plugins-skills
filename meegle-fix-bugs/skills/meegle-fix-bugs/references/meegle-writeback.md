@@ -4,7 +4,7 @@ Use the current installed Meegle skill or official MCP schema as the authoritati
 
 ## Query contract
 
-1. Check authentication before a business operation.
+1. Let the first required business call establish authentication. Reuse the authenticated session and resolved current user within an uninterrupted run; do not call account/project lookup again as an OAuth smoke test unless the task resumed, the connector reconnected, the account/project changed, or a call returned an authentication error.
 2. Decode Meegle URLs with the official decoder.
 3. Resolve the decoded space name to an authoritative project key.
 4. Resolve the authenticated user automatically for “me.”

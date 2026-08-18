@@ -3,7 +3,7 @@
 ## 1. Preflight
 
 1. Determine the exact actions authorized by the user.
-2. Check Meegle authentication before every business operation.
+2. Resolve Meegle authentication through the first required business call and reuse that authenticated session. Do not run a separate OAuth/account smoke test before each phase. Recheck only after a resumed task, connector reconnect, account/project change, or an authentication error.
 3. Resolve a supplied URL with the official URL decoder; never parse path segments manually.
 4. Resolve the authoritative project key, authenticated user, work-item type, field metadata, role metadata, and pagination.
 5. Inspect the target workspace and nearest instructions before editing.
@@ -57,15 +57,17 @@ Commit only when explicitly requested. Stage exact files, inspect the staged dif
 
 ## 7. Push and deploy
 
-Push only when explicitly requested. For a read-only deployment-status check, resolve and show the exact project/ref/environment scope, ask for scope confirmation at most once, and reuse that exact confirmation across every `gitlab_deployment` call needed for the query. Do not ask again merely because scope configuration and status lookup require separate MCP calls. Ask again only when the scope changes, and never create a confirmation on the user's behalf.
+Push only when explicitly requested. For a read-only deployment-status check, resolve the exact project/ref/environment scope, select it with `configure_project_scope`, and reuse the returned scope across every `gitlab_deployment` call needed for the query. Scope selection and all deployment discovery calls are read-only: never ask the user to confirm them.
 
-Before triggering deployment, resolve and show the exact project, ref, pipeline, full SHA, manual job, and target environment. Obtain target-specific deployment approval separately; read-scope confirmation does not authorize deployment.
+Before triggering deployment, resolve and show the exact project, ref, pipeline, full SHA, manual job, and target environment. If the user requested the full repair workflow, also show the proposed Meegle state, required fields, classification, and comment action that will follow only after deployment succeeds.
+
+Require exactly one approval for the deployment write. Prefer the client's write-tool approval prompt; if the client does not provide one, ask once in the conversation. Never require both, never require an exact confirmation phrase, and never add a preliminary project-scope confirmation. A single response may approve both the exact deployment and the clearly listed post-success Meegle write-back.
 
 Trigger only the approved job and poll it to a terminal state. A successful overall pipeline is not proof that the target environment was deployed. On failure or SHA mismatch, stop closure and report the deployed state truthfully.
 
 ## 8. Update and close Meegle
 
-After successful deployment, revalidate authentication and reread every Bug. Follow [meegle-writeback.md](meegle-writeback.md) to resolve target states and required fields automatically where safe, asking at most one consolidated question for unresolved values across all ready Bugs. Then add the requested repair comment and read back status, fields, and comment.
+After successful deployment, reuse the authenticated Meegle session unless a revalidation trigger occurred, and reread every Bug because its business state may have changed. Follow [meegle-writeback.md](meegle-writeback.md) to resolve target states and required fields automatically where safe. If the consolidated deployment approval already included the proposed write-back, perform it without another prompt. Otherwise show one consolidated write-back proposal and ask once; do not first ask the user to say “修改状态” and then ask for a second confirmation. Then add the requested repair comment and read back status, fields, and comment.
 
 When only part of a cross-component repair is complete, retain an unfinished state such as `IN PROGRESS` or `REOPENED` according to the user's confirmed choice. Never close from frontend-only evidence when backend or environment work remains.
 

@@ -9,11 +9,11 @@
 | Edit workspace files and run tests | Fix/repair request |
 | Create a Git commit | Explicit commit request |
 | Push a branch | Explicit push/publish request |
-| Configure or query deployment read scope | One explicit confirmation per unchanged project/ref/environment scope; reuse it across read-only MCP calls in the current run |
-| Trigger a deployment job | Target-specific deployment approval |
+| Configure or query deployment read scope | Read request; select the exact project/ref/environment automatically and do not request approval |
+| Trigger a deployment job | Exactly one target-specific approval after showing the project, pipeline, SHA, job, and environment; use either the client's write approval or one conversational confirmation, never both |
 | Set classification, resolution, state, person, or date | Authorized Meegle update plus a current valid value, an exact user/evidence match, a unique live choice, or one consolidated confirmation |
 
-Do not combine these authorities. For example, deployment approval does not approve Meegle classification, and a repair request does not approve a push.
+Do not infer one authority from another. The user may grant several clearly listed actions in one consolidated approval, but deployment alone does not approve Meegle classification and a repair request alone does not approve a push.
 
 ## Shared-state safeguards
 
