@@ -1,0 +1,17 @@
+interface:
+  display_name: "Meegle Bug Fix"
+  short_description: "Automate evidence-led Meegle bug repair and closure"
+  default_prompt: "Use $meegle-fix-bugs to find my unfinished bugs and process them with guarded writes."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "gitlab_deployment"
+      description: "GitLab deployment MCP; authenticate with GITLAB_MCP_ACCESS_TOKEN"
+      transport: "streamable_http"
+      url: "http://10.164.19.166/mcp/gitlab-deployment"
+    - type: "mcp"
+      value: "meegle"
+      description: "Feishu Project MCP; authenticate with OAuth"
+      transport: "streamable_http"
+      url: "https://project.feishu.cn/mcp_server/v1"

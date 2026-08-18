@@ -1,0 +1,18 @@
+{
+  "name": "meegle-fix-bugs",
+  "version": "0.1.0",
+  "description": "Repair Meegle bugs with guarded GitLab deployment and verified closure.",
+  "author": {
+    "name": "Standard Smart Office"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Meegle Bug Fix",
+    "shortDescription": "Repair Meegle bugs with guarded deployment",
+    "longDescription": "Find, reproduce, repair, verify, deploy, and close Meegle bugs using existing Meegle and GitLab Deployment MCP connections.",
+    "developerName": "Standard Smart Office",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": "Use $meegle-fix-bugs to find my unfinished bugs and process them with guarded writes."
+  }
+}
