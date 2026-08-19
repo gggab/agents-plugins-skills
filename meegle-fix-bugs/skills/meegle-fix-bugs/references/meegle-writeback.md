@@ -33,7 +33,7 @@ Never invent enum choices, assignees, dates, classifications, or resolution resu
 
 ## Comment contract
 
-Add one independent comment per Bug when requested. Use [../assets/repair-comment.md](../assets/repair-comment.md) and include only verified facts: root cause, fix, commit, tests, build, deployment target, exact deployed SHA, and final status. Do not claim production or deployment success from a local commit.
+Add one independent, concise bilingual (Chinese/English) comment per Bug when requested. Use [../assets/repair-comment.md](../assets/repair-comment.md) and include only verified facts: root cause, fix, commit, compact tests/build result, deployment environment and exact deployed SHA/status, and final status. Do not claim production or deployment success from a local commit.
 
 ## Read-back contract
 

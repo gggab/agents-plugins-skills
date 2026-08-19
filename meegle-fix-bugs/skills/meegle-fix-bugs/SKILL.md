@@ -28,7 +28,7 @@ Infer permission only from the user's request:
 - Read [references/workflow.md](references/workflow.md) before repairing a Bug.
 - Read [references/safety-gates.md](references/safety-gates.md) before any commit, push, deployment, comment, field update, or transition.
 - Read [references/meegle-writeback.md](references/meegle-writeback.md) before resolving assignment or writing to Meegle.
-- Use [assets/repair-comment.md](assets/repair-comment.md) for every repair comment, and write the comment in English.
+- Use [assets/repair-comment.md](assets/repair-comment.md) for every repair comment. Keep it concise and bilingual (Chinese/English); keep Verification to tests/build and deployment environment, SHA, and status only.
 
 Use the declared `meegle` MCP for Bug discovery and write-back, and `gitlab_deployment` for pipeline and deployment operations. If a dependency is missing or unauthenticated, direct the user to the host's installation or login flow; do not install it or change MCP configuration unless asked. Missing Meegle blocks discovery and write-back. Missing GitLab deployment blocks only deployment and closure.
 
