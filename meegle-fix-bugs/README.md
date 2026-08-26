@@ -2,9 +2,18 @@
 
 `meegle-fix-bugs` 用于处理飞书项目中的 Bug。它要求先读取证据并复现问题，再进行本地修复和验证；共享状态变更仍需明确授权，但可以把提交、推送、部署和飞书回写一次性列清后合并授权，不重复索要口令。
 
+## 内置 MCP 连接
+
+插件现在随包携带两个私有 Marketplace 范围的 MCP 连接：
+
+- `meegle`：飞书项目 MCP，首次使用时由每位使用者通过自己的账号完成 OAuth。
+- `gitlab_deployment`：GitLab 部署 MCP，使用本机环境变量 `GITLAB_MCP_ACCESS_TOKEN`，不在插件中保存 Token。
+
+连接配置位于 [`.mcp.json`](./.mcp.json)，并通过插件 manifest 的 `mcpServers` 加载。插件不会修改或删除用户级 `config.toml` 中已有的同名 MCP；如果旧的全局连接仍启用，安装新版后请只保留一份，避免工具重复出现。
+
 ## 依赖
 
-- 飞书项目 Meegle：用于查询 Bug、读取上下文和回写结果，每位使用者通过自己的账号完成 OAuth。
+- 飞书项目 Meegle：用于查询 Bug、读取上下文和回写结果。
 - `gitlab_deployment`：用于查询 Pipeline 和执行经过批准的部署；仅修复本地代码时可以不连接。
 - Bug 对应的本地代码仓库：请在实际要修复的项目中启动 Codex，不要在本插件目录中执行修复。
 

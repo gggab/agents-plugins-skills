@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "gitlab_deployment": {
+      "url": "http://10.164.19.166/mcp/gitlab-deployment",
+      "bearer_token_env_var": "GITLAB_MCP_ACCESS_TOKEN",
+      "tool_timeout_sec": 60,
+      "default_tools_approval_mode": "writes",
+      "enabled_tools": [
+        "configure_project_scope",
+        "list_group_projects",
+        "list_pipelines",
+        "list_pipeline_jobs",
+        "play_deploy_job"
+      ]
+    },
+    "meegle": {
+      "url": "https://project.feishu.cn/mcp_server/v1",
+      "default_tools_approval_mode": "writes"
+    }
+  }
+}
