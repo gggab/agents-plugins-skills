@@ -32,3 +32,5 @@ codex plugin marketplace list
 ```
 
 Marketplace 配置位于 [`.agents/plugins/marketplace.json`](./.agents/plugins/marketplace.json)。插件的依赖和具体用法请查看各插件目录中的 README。
+
+完整的安装、OAuth/Token 鉴权配置和使用流程请查看 [`meegle-fix-bugs/USAGE.md`](./meegle-fix-bugs/USAGE.md)。

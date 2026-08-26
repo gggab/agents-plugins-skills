@@ -29,6 +29,8 @@ codex plugin add meegle-fix-bugs@standard-smart-office
 
 安装后需要新建 Codex 任务或 CLI 会话，才能加载插件中的技能。
 
+从安装、Meegle OAuth、GitLab Token 配置到完整使用流程，请参阅[使用文档](./USAGE.md)。
+
 ## 快速开始
 
 第一次使用建议从只读查询开始：
