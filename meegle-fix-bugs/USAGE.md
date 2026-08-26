@@ -1,5 +1,7 @@
 # Meegle Bug Fix 使用文档
 
+[English](./USAGE.en.md)
+
 本文面向第一次使用 `meegle-fix-bugs` 的同事，覆盖安装、连接鉴权、首次验证，以及从查询 Bug 到修复、部署和飞书项目回写的完整流程。
 
 ## 1. 插件能做什么
